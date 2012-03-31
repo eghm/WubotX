@@ -1,0 +1,31 @@
+;; Object templates/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "templates/"
+  :tables (list 
+   (semanticdb-table "taskbot.list.html.ep"
+    :major-mode 'html-mode
+    :tags '(("Taskbot" section nil nil [21 117]) ("|
+      <a href=\"?scheduled=any\">all" section nil nil [117 184]) ("|
+      <a href=\"?scheduled=any\">all" section nil nil [184 248]) ("|
+      <a href=\"?scheduled=any\">all" section nil nil [248 368]) ("|
+      <a href=\"?scheduled=any\">all" section (:members (("all" section nil nil [461 508]) ("unscheduled" section nil nil [508 565]) ("scheduled" section nil nil [565 619]) ("past schedule" section nil nil [619 708]) ("|
+      <% } %>
+      <a href=\"?task_status=todo\">todo" section nil nil [708 778]) ("todo" section nil nil [778 829]) ("done" section nil nil [829 880]) ("-" section nil nil [880 913]) ("+" section nil nil [913 1214]) ("&scheduled=any&task_status=todo'><%= $category->{category} %>" section nil nil [1214 4323]) ("status_pretty %>" section nil nil [4323 4808]) ("'><%= $item->title %>" section nil nil [4808 4937]) ("'>-&gt;" section nil nil [4937 5057]) ("'>(*)" section nil nil [5057 5480]) ("category %>" section nil nil [5480 5483]))) nil [368 374]))
+    :file "taskbot.list.html.ep"
+    :pointmax 5930
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "taskbot.item.html.ep"
+    :major-mode 'html-mode
+    :tags '((".:<%= $item->title %>:." section nil nil [47 123]) ("{ %>
+        <tr>
+          <td width=\"8%\">taskid" section (:members (("category %>" section nil nil [1858 3925]) ("'>body" section nil nil [3925 4169]) ("%>" section nil nil [4169 4172]))) nil [123 129]))
+    :file "taskbot.item.html.ep"
+    :pointmax 4435
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

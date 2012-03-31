@@ -1,0 +1,90 @@
+#!//usr/local/wu/bin/perl -w
+use strict;
+use warnings;
+
+use ElasticSearch;
+use YAML;
+
+use App::Wubot::Logger;
+use App::Wubot::SQLite;
+use App::Wubot::Util::Notifications;
+
+$| = 1;
+
+my $logger = Log::Log4perl::get_logger( 'default' );
+
+my $notify_file    = join( "/", $ENV{HOME}, "wubot", "sqlite", "notify.sql" );
+my $sqlite_notify  = App::Wubot::SQLite->new( { file => $notify_file } );
+
+my $es = ElasticSearch->new(
+        servers      => '127.0.0.1:9200',
+        transport    => 'http',
+        max_requests => 10_000,
+    );
+
+if ( grep /\-index/, @ARGV ) {
+    reindex();
+}
+
+
+
+
+sub reindex {
+
+    my $where => { id => { '>' => 0 } };
+
+    my $firstid = shift @ARGV;
+    if ( $firstid =~ m|^\d+$| ) {
+        $where => { id => { ">" => $firstid } };
+    }
+
+    # get a list of tagged items
+    my %tags;
+    $sqlite_notify->select( { tablename => 'tags',
+                              fieldname => 'remoteid',
+                              where     => { tag => { '!=' => 'readme' } },
+                              callback => sub {
+                                  my $row = shift;
+                                  $tags{ $row->{remoteid} }->{ $row->{tag} } = 1;
+                              },
+                          } );
+
+    my $count = 0;
+    $sqlite_notify->select( { tablename => 'notifications',
+                              order     => 'id',
+                              where     => $where,
+                              callback  => sub {
+                                  my $row = shift;
+
+                                  $count++;
+                                  if ( $count % 100 == 0 ) { print "$row->{id}," }
+
+                                  if ( $tags{ $row->{id} } ) {
+                                      $row->{tags} = [ sort keys %tags ];
+                                  }
+
+                                  my $index = lc( $row->{key} );
+                                  $index =~ s|\-.*$||;
+
+                                  my $got = $es->get(
+                                      index   => $index,
+                                      type    => 'notification',
+                                      id      => $row->{id},
+                                      ignore_missing => 1,
+                                  );
+
+                                  return if $got;
+
+                                  $es->index(
+                                      index => $index,
+                                      type  => 'notification',
+                                      id    => $row->{id},
+                                      data  => $row,
+                                  );
+
+                              },
+
+                          } );
+
+
+}

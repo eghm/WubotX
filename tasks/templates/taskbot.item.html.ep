@@ -1,0 +1,132 @@
+% use POSIX qw(strftime);
+<html>
+  <head>
+    <title>.:<%= $item->title %>:.</title>
+    <%= include 'css' %>
+  </head>
+  <body bgcolor=black>
+
+    <%= include 'nav' %>
+
+      <form method="post">
+
+      <table width="100%" bgcolor="<%= $item->display_color %>">
+
+        <% if ( $item->taskid ) { %>
+        <tr>
+          <td width="8%">taskid</td>
+          <td><%= $item->taskid %><input type="hidden" name="taskid" value="<%= $item->taskid %>"</td>
+        </tr>
+        <% } %>
+
+        <tr>
+          <td width="8%">title</td>
+          <td>
+            <input type="text" name="title" size="64" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->title %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">priority</td>
+          <td>
+            <input type="text" name="priority" size="20" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->priority %>">
+            <%== $item->priority_display %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">status</td>
+          <td>
+            <input type="text" name="status" size="16" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->status %>">
+            <%== $item->status_pretty %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">color</td>
+          <td>
+            <input type="text" name="color" size="64" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->color %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">category</td>
+          <td>
+            <input type="text" name="category" size="32" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->category %>">
+            <a href="/taskbot/list?category=<%= $item->category %>&scheduled=any"><%= $item->category %></a>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">scheduled</td>
+          <td>
+            <input type="text" name="scheduled" size="24" style="background-color: <%= $item->timer_color %>; border: 1px solid black" value="<%= $item->scheduled_pretty %>">
+            <%== $item->timer_display %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">duration</td>
+          <td>
+            <input type="text" name="duration" size="16" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->duration %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">recurrence</td>
+          <td>
+            <input type="text" name="recurrence" size="16" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->recurrence %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">link</td>
+          <td>
+            <input type="text" name="link" size="64" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->link %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">sound</td>
+          <td>
+            <input type="text" name="sound" size="32" style="background-color: <%= $item->display_color %>; border: 1px solid black" value="<%= $item->sound %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">command</td>
+          <td><input type="text" name="cmd" size="8" style="background-color: <%= $item->display_color %>; border: 1px solid black"></td>
+        </tr>
+
+        <% if ( $item->lastdone ) { %>
+          <tr>
+            <td width="8%">last done</td>
+            <td><input type="text" name="lastdone" size="8" style="background-color: <%= $item->lastdone_color %>; border: 1px solid <%= $item->lastdone_color %>" value="<%= $item->lastdone_age %>"></td>
+          </tr>
+        <% } %>
+
+        <tr>
+          <td width="8%"><a href='/taskbot/edit/<%= $item->taskid %>'>body</a></td>
+          <td><pre><%= $item->pre_body %></pre></td>
+        </tr>
+
+        <tr>
+          <td>urls</td>
+          <td>
+            <% for my $url ( @{ $item->urls } ) { %>
+            <a href='<%= $url %>'><%= $url %></a><br>
+            <% } %>
+          </td>
+        </tr>
+      
+      </table>
+
+      </td></tr></table>
+
+      <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
+
+    </form>
+  </body>
+</html>
+
+

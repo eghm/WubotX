@@ -1,0 +1,10 @@
+** TODO [#B] make tea                                                :chores:
+   DEADLINE: <2011-09-14 Wed 12:00 .+2d>
+   - State "DONE"       from "TODO"       [2011-09-12 Mon 16:37]
+   - State "DONE"       from "TODO"       [2011-07-22 Fri 21:48]
+   :PROPERTIES:
+   :LAST_REPEAT: [2011-09-12 Mon 16:37]
+   :END:
+
+  - [ ] foo
+

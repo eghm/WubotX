@@ -1,0 +1,85 @@
+% use POSIX qw(strftime);
+<html>
+  <head>
+    <title>TiVo</title>
+    <script type='text/javascript' src='/sort/common.js'></script>
+    <script type='text/javascript' src='/sort/css.js'></script>
+    <script type='text/javascript' src='/sort/standardista-table-sorting.js'></script>
+    <%= include 'css' %>
+  </head>
+  <body bgcolor="#073642">
+
+    <%= include 'nav' %>
+
+    |
+    <%= $info->{folders} %> folders
+    |
+    <%= $info->{shows} %> shows
+    |
+    <%= $info->{size} %> GB
+    |
+    <font color="darkpink"><%= $info->{percent} %> %</font>
+    |
+    updated: <%= strftime( '%Y-%m-%d %H:%M', localtime( $info->{lastupdate} ) ) %>
+    |
+    age: <%= $info->{age} %>
+
+    <table width='100%' class='sortable autostripe'>
+      <thead>
+        <tr>
+          <% for my $header ( @$headers ) { %>
+          <th><%= $header %></th>
+          <% } %>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% my $last_date = ""; %>
+        <% my $yesterday =  strftime( '%Y-%m-%d %a', localtime( time - 24*60*60 ) ); %>
+        <% for my $item ( @{ $items } ) { %>
+
+        <% my $date = $item->{scheduled} ? strftime( '%Y-%m-%d %a', localtime( $item->{scheduled} ) ) : ""; %>
+        <% if ( $last_date ne $date and $date ge $yesterday ) {  %>
+
+        <tr bgcolor="black">
+          <% for my $header ( @$headers ) { %>
+          <% if ( $header eq "taskid" ) { %>
+
+
+          <td align="right"><font size="-1">
+              <% if ( $date eq $yesterday ) { %>
+              Yesterday
+              <% } else { %>
+              <%= $date %>
+              <% } %>
+          </font></td>
+          <% } else { %>
+          <td></td>
+          <% } %>
+          <% } %>
+        </tr>
+        <% $last_date = $date; %>
+        <% } %>
+
+        <tr bgcolor="<%= $item->{display_color} %>">
+
+          <td width='1%'><%= $item->{download} ? '*' : '' %></td>
+          <td width='1%'><%= $item->{errmsg} ? 'err' : $item->{downloaded} ? 'y' : '' %></td>
+          <td width='1%'><%= $item->{errmsg} ? 'err' : $item->{decoded} ? 'y' : '' %></td>
+          <td width='1%'><%= $item->{library} ? 'y' : '' %></td>
+          <td width='20%'><a title="<%= $item->{description} %>: id=<%= $item->{tivoid} %>" href="/tivo/item/<%= $item->{tivoid} %>"><%= $item->{name} %></a></td>
+          <td width='20%'><p title="<%= $item->{description} %>"><%= $item->{episode} %></p></td>
+          <td width='3%'><%= $item->{episode_num} %></td>
+          <td width='3%'><%= $item->{size} %></td>
+          <td width='8%' bgcolor="<%= $item->{recorded_color} %>"><%=  $item->{recorded} ? strftime( '%Y-%m-%d %H:%M', localtime( $item->{recorded} ) ) : ""  %></td>
+          <td width='1%'><%= $item->{hd} %></td>
+          <td width='3%'><%= $item->{duration} %></td>
+          <td width='8%'><%=  $item->{lastupdate} ? strftime( '%Y-%m-%d %H:%M', localtime( $item->{lastupdate} ) ) : ""  %></td>
+        </tr>
+        <% } %>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+  </body>
+</html>

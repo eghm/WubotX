@@ -1,0 +1,16 @@
+---
+enable: 1
+longitude: -122.6362492
+latitude: 47.5403732
+delay: 60
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: timeline
+        mailbox: timeline
+
+

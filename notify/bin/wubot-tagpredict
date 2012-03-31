@@ -1,0 +1,130 @@
+#!/usr/local/bin/perl -w
+use strict;
+use warnings;
+
+use DB_File;
+use FindBin;
+use HTML::Strip;
+use YAML;
+
+use lib "$FindBin::Bin/../lib";
+
+use App::Wubot::Logger;
+my $logger = Log::Log4perl::get_logger( 'default' );
+
+use App::Wubot::SQLite;
+use App::Wubot::Util::Notifications;
+use App::Wubot::Util::TagPredict;
+
+my $predict = App::Wubot::Util::TagPredict->new();
+
+my $notify = App::Wubot::Util::Notifications->new();
+
+my $notify_file    = join( "/", $ENV{HOME}, "wubot", "sqlite", "notify.sql" );
+my $sqlite_notify  = App::Wubot::SQLite->new( { file => $notify_file } );
+
+if ( grep /-index/, @ARGV ) {
+    reindex();
+}
+if ( grep /-common/, @ARGV ) {
+
+    my %counts;
+
+    foreach ( keys %{ $predict->db } ) {
+        my $key = $_;
+        next unless $key =~ m|^count_tag_word:_TOTAL_:|;
+        next if $key =~ m|_TOTAL_$|;
+
+        $counts{$key} = $predict->{db}->{$key};
+    }
+
+    my $limit = 50;
+    for my $name ( sort { $predict->{db}->{$b} <=> $predict->{db}->{$a} } keys %counts ) {
+        last unless $limit;
+        $limit--;
+        print "$name: $counts{$name}\n";
+    }
+
+}
+if ( scalar @ARGV && $ARGV[0] =~ m|^\d+$| ) {
+    get_suggested_tags();
+}
+
+sub get_suggested_tags {
+    my $id = $ARGV[0];
+
+    my $item = $notify->get_item_by_id( $id );
+
+    print "\n\n";
+    print $item->{subject};
+    print "\n\n";
+
+    my $words = $predict->count_words( $item->{subject}, $item->{subject_text}, $item->{body} );
+
+    my $recs = $predict->predict_tags( $words, { limit => 15 } );
+
+    for my $tag ( sort { $recs->{$b} <=> $recs->{$a} } keys %{ $recs } ) {
+        printf( "%10s  %0.3f\n", $tag, $recs->{$tag} );
+
+    }
+}
+
+
+sub reindex {
+    my $hs = HTML::Strip->new();
+
+    my %ids;
+
+    $sqlite_notify->select( { tablename => 'tags',
+                              fieldname => 'remoteid',
+                              where     => { tag => { '!=' => 'readme' } },
+                              callback => sub {
+                                  my $row = shift;
+                                  $ids{ $row->{remoteid} } = 1;
+                              },
+                          } );
+
+    my $total = scalar keys %ids;
+
+    print "Got ids: $total\n";
+
+    my $count = 0;
+    for my $id ( sort keys %ids ) {
+        $count++;
+
+        if ( $count % 1000 == 0 ) { print "$count\n"; }
+
+        my @tags;
+        $sqlite_notify->select( { tablename => 'tags',
+                                  fieldname => 'tag',
+                                  where     => { remoteid => $id, tag => { '!=' => 'readme' } },
+                                  callback => sub {
+                                      my $row = shift;
+                                      push @tags, $row->{tag};
+                                  },
+                              } );
+
+
+        $sqlite_notify->select( { tablename => 'notifications',
+                                  where     => { id => $id },
+                                  callback  => sub {
+                                      my $row = shift;
+
+                                      my @content;
+                                      push @content, $row->{subject_text};
+                                      push @content, $row->{body};
+
+                                      my $words = $predict->count_words( @content );
+
+                                      my $wordcount = scalar keys %{ $words };
+
+                                      $logger->info( "[$count/$total]: $row->{id} = $wordcount: $row->{subject}" );
+                                      $logger->info( "   ", join( ", ", @tags ) );
+
+                                      $predict->store( $words, @tags );
+
+                                  },
+                              } );
+
+    }
+}

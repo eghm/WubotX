@@ -1,0 +1,8 @@
+* Meta
+
+  - color: asdf
+    - in meta block
+
+  - due: 2020/01/02 1pm
+
+

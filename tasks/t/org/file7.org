@@ -1,0 +1,10 @@
+* TODO 24h thursday tasks
+   DEADLINE: <2011-05-12 Thu +4w>
+   - State "DONE"       from "TODO"       [2011-04-14 Thu 17:48]
+   - State "DONE"       from "TODO"       [2011-03-19 Sat 16:18]
+   - State "DONE"       from "TODO"       [2011-02-21 Mon 11:55]
+   - State "DONE"       from "TODO"       [2011-01-20 Thu 12:18]
+
+  - [ ] foo
+  - [ ] bar
+  - [ ] baz

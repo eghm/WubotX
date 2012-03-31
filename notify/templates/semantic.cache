@@ -1,0 +1,29 @@
+;; Object templates/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "templates/"
+  :tables (list 
+   (semanticdb-table "notify.list.html.ep"
+    :major-mode 'html-mode
+    :tags '(("wubot notifications" section nil nil [21 161]) ("|
+      <a href=\"/notify\"><%= $count %> unread" section (:members (("unread" section nil nil [250 307]) ("collapse" section nil nil [307 356]) ("old" section nil nil [356 395]) ("readme" section nil nil [395 457]) ("todo" section nil nil [457 513]) ("all seen" section nil nil [513 820]) ("'><%= $mailbox->{mailbox} %>" section nil nil [820 1512]) ("mailbox %>" section nil nil [1512 1621]) ("key1 %>" section nil nil [1621 1723]) ("key2 %>" section nil nil [1723 1873]) ("seen" section nil nil [1873 1980]) ("seen" section nil nil [1980 2098]) ("username %>" section nil nil [2098 2237]) ("%>
+              <img height=\"18\" width=\"18\" src=\"/images/<%= $row->icon %>\">
+            <% if ( $row->link ) { %>" section nil nil [2237 2524]) ("*" section nil nil [2524 2608]) ("+" section nil nil [2608 3107]) ("*" section nil nil [3107 3110]))) nil [161 167]))
+    :file "notify.list.html.ep"
+    :pointmax 3747
+    )
+   (semanticdb-table "notify.item.html.ep"
+    :major-mode 'html-mode
+    :tags '(("wubot: <%= $item->subject_text %>" section nil nil [21 107]) ("'><%= $mailbox->{mailbox} %>" section (:members (("'><%= $mailbox->{mailbox} %>" section nil nil [377 743]) ("edit" section nil nil [743 1200]) ("seen" section nil nil [1200 2036]) ("%>
+            <% if ( scalar keys %$predict_tags ) { %>
+              <br>
+              <font color=\"pink\"> |
+              <% for my $tag ( sort { $predict_tags->{$b} <=> $predict_tags->{$a} } keys %$predict_tags ) { %>
+                <a style='color: pink' href='/notify?tag=<%= $tag %>'><%= $tag %> - <%= sprintf( \"%0.1f\", $predict_tags->{$tag} * 100 ) %>%" section nil nil [2036 2638]) ("mailbox %>" section nil nil [2638 2806]) ("key %>" section nil nil [2806 3413]) ("link %>" section nil nil [3413 3598]) ("%>" section nil nil [3598 3601]))) nil [107 113]))
+    :file "notify.item.html.ep"
+    :pointmax 3858
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

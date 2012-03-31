@@ -1,0 +1,145 @@
+% use POSIX qw(strftime);
+<html>
+  <head>
+    <title>wubot: tivo</title>
+    <meta http-equiv="refresh" content="<%= 180 + int(rand(60)) %>">
+    <%= include 'css' %>
+  </head>
+  <body bgcolor=black>
+
+    <%= include 'nav' %>
+
+      <form method="post">
+
+      <table width="100%" bgcolor="<%= $item->{display_color} %>">
+
+        <% if ( $item->{tivoid} ) { %>
+        <tr>
+          <td width="8%">tivoid</td>
+          <td><%= $item->{tivoid} %><input type="hidden" name="tivoid" value="<%= $item->{tivoid} %>"</td>
+        </tr>
+        <% } %>
+
+        <tr>
+          <td width="8%">name</td>
+          <td>
+            <%= $item->{name} %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">episode</td>
+          <td>
+            <%= $item->{episode} %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">episode number</td>
+          <td>
+            <%= $item->{episode_num} %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">description</td>
+          <td>
+            <%= $item->{description} %>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">size</td>
+          <td>
+            <%= $item->{size} %> MB
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">duration</td>
+          <td>
+            <%= $item->{duration} %> Minutes
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">color</td>
+          <td>
+            <input type="text" name="color" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{color} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">download</td>
+          <td>
+            <input type="text" name="download" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{download} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">errmsg</td>
+          <td>
+            <input type="text" name="errmsg" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{errmsg} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">fetched</td>
+          <td>
+            <input type="text" name="downloaded" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{downloaded} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">decoded</td>
+          <td>
+            <input type="text" name="decoded" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{decoded} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">library</td>
+          <td>
+            <input type="text" name="library" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{library} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">enqueued</td>
+          <td>
+            <input type="text" name="enqueued" size="64" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{enqueued} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">link</td>
+          <td>
+            <input type="text" name="link" size="128" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{link} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">curl_cmd</td>
+          <td>
+            <input type="text" name="curl_cmd" size="128" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{curl_cmd} %>">
+          </td>
+        </tr>
+
+        <tr>
+          <td width="8%">tivodecode_cmd</td>
+          <td>
+            <input type="text" name="tivodecode_cmd" size="128" style="background-color: <%= $item->{display_color} %>; border: 1px solid black" value="<%= $item->{tivodecode_cmd} %>">
+          </td>
+        </tr>
+
+      </table>
+
+      </td></tr></table>
+
+      <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
+
+    </form>
+  </body>
+</html>
+
+

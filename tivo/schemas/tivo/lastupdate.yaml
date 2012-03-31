@@ -1,0 +1,9 @@
+---
+id: INTEGER PRIMARY KEY AUTOINCREMENT
+lastupdate: INTEGER
+folders: INTEGER
+shows: INTEGER
+size: INTEGER
+new_size: INTEGER
+percent: INTEGER
+

@@ -1,0 +1,19 @@
+---
+id: INTEGER PRIMARY KEY AUTOINCREMENT
+taskid: VARCHAR(32)
+type: VARCHAR(16)
+priority: INTEGER
+status: VARCHAR(8)
+color: VARCHAR(16)
+sound: VARCHAR(32)
+title: VARCHAR(128)
+link: VARCHAR(256)
+category: VARCHAR(16)
+scheduled: INTEGER
+deadline: INTEGER
+recurrence: VARCHAR(8)
+duration: VARCHAR(8)
+lastupdate: INTEGER
+lastdone: INTEGER
+constraints:
+  - UNIQUE( taskid ) ON CONFLICT REPLACE

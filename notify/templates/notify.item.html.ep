@@ -1,0 +1,142 @@
+<html>
+  <head>
+    <title>wubot: <%= $item->subject_text %></title>
+    <%= include 'css' %>
+  </head>
+  <body bgcolor=black>
+
+    <%= include 'nav' %>
+
+    <table width='100%'>
+      <tr valign='top'>
+        <td width='50' class="mailboxes">
+          <table>
+            <% for my $mailbox ( @{ $mailboxes } ) { %>
+              <tr bgcolor='<%= $mailbox->{color} %>'><td><a href='/notify?mailbox=<%= $mailbox->{mailbox} %>'><%= $mailbox->{mailbox} %></a></td><td><%= $mailbox->{count} %></td></tr>
+            <% } %>
+          </table>
+        </td>
+        <td>
+
+      <form method="post">
+
+      <table width="100%" bgcolor="<%= $item->display_color %>">
+        <tr>
+          <td width="8%">id</td>
+          <td><%= $item->id %> | <a href="?edit=1">edit</a> (<%= $item->checksum %>)</td>
+        </tr>
+
+        <tr>
+          <td>icon</td>
+          <td><img width="64" height="64" src="/images/<%= $item->icon %>"></td>
+        </tr>
+
+        <tr>
+          <td>username</td>
+          <td><%= $item->username %></td>
+        </tr>
+
+        <tr>
+          <td>seen</td>
+          <td>
+            <% if ( $item->seen ) { %>
+            marked seen
+            <% } else { %>
+            <a href="?cmd=r">seen</a>
+            <% } %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>subject</td>
+          <td>
+            <% if ( $edit ) { %>
+              <textarea name="subject" rows="4" cols="120" style="background-color: <%= $item->display_color %>; border: 0px"><%= $item->subject_text %></textarea>
+            <% } else { %>
+              <%= $item->subject_text %>
+            <% } %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>score</td>
+          <td><%= $item->score %></td>
+        </tr>
+
+        <tr>
+          <td>color</td>
+          <td><%= $item->color %></td>
+        </tr>
+
+        <tr>
+          <td>cmd</td>
+          <td><input type="text" name="cmd" size="5" style="background-color: <%= $item->display_color %>; border: 1px solid black"></td>
+        </tr>
+
+        <tr>
+          <td>tags</td>
+          <td>
+            <% for my $tag ( @$tags ) { %>
+            <a href='/notify?tag=<%= $tag %>'><%= $tag %></a><br>
+            <% } %>
+            <% if ( scalar keys %$predict_tags ) { %>
+              <br>
+              <font color="pink"> |
+              <% for my $tag ( sort { $predict_tags->{$b} <=> $predict_tags->{$a} } keys %$predict_tags ) { %>
+                <a style='color: pink' href='/notify?tag=<%= $tag %>'><%= $tag %> - <%= sprintf( "%0.1f", $predict_tags->{$tag} * 100 ) %>%</a> |
+              <% } %>
+              </font>
+            <% } %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>mailbox</td>
+          <td>
+            <a href="/notify?mailbox=<%= $item->mailbox %>"><%= $item->mailbox %></a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>key</td>
+          <td>
+            <a href="/notify?mailbox=<%= $item->key %>"><%= $item->key %></a>
+          </td>
+        </tr>
+
+        <tr height="100px">
+          <td>body</td>
+          <td class="body">
+            <% if ( $edit ) { %>
+              <textarea name="body" rows="40" cols="120" style="background-color: <%= $item->display_color %>; border: 0px"><%= $item->body %></textarea>
+            <% } else { %>
+              <table width="70%"><tr><td style="border-width: 0px 0px 0 0;"><%== $item->body %></td></tr></table>
+            <% } %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>link</td>
+          <td><a href="<%= $item->link %>"><%= $item->link %></td>
+        </tr>
+
+        <tr>
+          <td>urls</td>
+          <td>
+            <% for my $url ( @{ $item->urls } ) { %>
+            <a href='<%= $url %>'><%= $url %></a><br>
+            <% } %>
+          </td>
+        </tr>
+
+      </table>
+
+      </td></tr></table>
+
+      <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
+
+    </form>
+  </body>
+</html>
+
+

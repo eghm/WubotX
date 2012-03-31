@@ -1,0 +1,49 @@
+#!/usr/local/bin/perl -w
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use YAML;
+
+use App::Wubot::Logger;
+use App::Wubot::SQLite;
+use App::Wubot::Util::Notifications;
+
+my $logger = Log::Log4perl::get_logger( 'default' );
+my $notify = App::Wubot::Util::Notifications->new();
+
+# everything over 30 days old
+my $oldest = time - 60 * 60 * 24 * 30;
+
+my %tagged;
+for my $tag ( $notify->get_tagged_ids() ) {
+    $tagged{ $tag } = 1;
+}
+
+my $select =  { where    => { lastupdate => { '<' => $oldest } },
+                order    => 'id',
+                fields   => 'id',
+                callback => \&archive,
+            };
+
+$notify->select( $select );
+
+$notify->vacuum();
+
+sub archive {
+    my ( $item ) = @_;
+
+    if ( $tagged{ $item->{id} } ) {
+        $logger->info( "Skipping Tagged: $item->{id}" );
+        return;
+    }
+
+    $logger->debug( "Archiving: $item->{id}" );
+
+    $notify->archive( $item->{id} );
+}
+
+
+
+

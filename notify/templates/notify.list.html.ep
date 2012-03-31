@@ -1,0 +1,140 @@
+<html>
+  <head>
+    <title>wubot notifications</title>
+    <meta http-equiv="refresh" content="<%= 60 + int(rand(10)) %>">
+    <%= include 'css' %>
+  </head>
+  <body bgcolor="black">
+
+    <%= include 'nav' %>
+
+    <font color="#FF00FF">
+      |
+      <a href="/notify"><%= $count %> unread</a>
+      |
+      <a href="?collapse=1">collapse</a>
+      |
+      <a href="?old=1">old</a>
+      |
+      <a href="?tag=readme"><%= $readme %> readme</a>
+      |
+      <a href="?tag=todo"><%= $todo %> todo</a>
+      |
+      <a href="?seen=<%= $ids %>">all seen</a>
+      |
+    </font>
+
+<form method="post">
+
+    <table width='100%'>
+      <tr valign='top'>
+
+        <td width='50' class="mailboxes">
+          <table>
+            <% for my $mailbox ( @{ $mailboxes } ) { %>
+              <tr bgcolor='<%= $mailbox->{color} %>'><td><a href='?mailbox=<%= $mailbox->{mailbox} %>'><%= $mailbox->{mailbox} %></a></td><td><%= $mailbox->{count} %></td></tr>
+            <% } %>
+          </table>
+        </td>
+        <td>
+
+    <table width='100%'>
+      <thead>
+        <tr>
+          <% for my $header ( @$headers ) { %>
+            <th class="<%= $header %>"><%= $header %></th>
+          <% } %>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% for my $row ( @{ $body_data } ) { %>
+          <tr bgcolor="<%= $row->display_color %>">
+
+            <td><input type="text" name="tag_<%= $row->id %>" size="5" style="background-color: <%= $row->display_color %>; border: 1px solid black"></td>
+
+          <td>
+            <a href="?mailbox=<%= $row->mailbox %>"><%= $row->mailbox %></a>
+          </td>
+
+          <td>
+            <a href="?plugin=<%= $row->key1 %>"><%= $row->key1 %></a>
+          </td>
+
+          <td>
+            <a href="?key=<%= $row->key %>"><%= $row->key2 %></a>
+          </td>
+
+          <td class="seen">
+            <% if ( $mailbox ) { %>
+               <a href="?mailbox=<%= $mailbox %>&seen=<%= $row->id %>">seen</a>
+            <% } else { %>
+               <a href="?seen=<%= $row->id %>">seen</a>
+            <% } %>
+          </td>
+
+          <td style="text-align: right"><a href="?username=<%= $row->username %>"><%= $row->username %></a></td>
+
+          <td>
+            <% if ( $row->link ) { %>
+            <a href="<%= $row->link %>">
+            <% } %>
+              <img height="18" width="18" src="/images/<%= $row->icon %>">
+            <% if ( $row->link ) { %>
+            </a>
+            <% } %>
+          </td>
+
+          <td>
+            <% if ( $row->has_body ) { %>
+              <a href="/notify/id/<%= $row->id %>">*</a>
+            <% } else { %>
+              <a href="/notify/id/<%= $row->id %>">+</a>
+            <% } %>
+          </td>
+
+          <td style="text-align: left">
+            <%== $row->subject %>
+
+            <% if ( $row->has_body && $showbody ) { %>
+              <hr>
+              <%= $row->pre_body %>
+              <% if ( $row->image ) { %>
+                <br>
+                <img src="<%= $row->image %>">
+              <% } %>
+            <% } %>
+
+          </td>
+
+          <td>
+            <% if ( $row->link ) { %>
+            <a href="<%= $row->link %>">*</a>
+            <% } %>
+          </td>
+
+          <td>
+            <% if ( $row->score ) { %>
+            <%= $row->score %>
+            <% } %>
+          </td>
+
+          <td class="age" bgcolor="<%= $row->lastupdate_color %>"><%= $row->age %></td>
+
+        </tr>
+        <% } %>
+
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+
+    </td></tr></table>
+
+    <input type="image" src="images/wubot.png" border=0 height=32 width=32 alt="submit">
+    </form>
+
+  <img src="/rrd/SQLite-notifyqueue/SQLite-notifyqueue-daily.png">
+  <img src="/rrd/SQLite-notify-day/SQLite-notify-day-daily.png">
+  </body>
+</html>

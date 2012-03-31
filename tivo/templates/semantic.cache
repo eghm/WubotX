@@ -1,0 +1,51 @@
+;; Object templates/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "templates/"
+  :tables (list 
+   (semanticdb-table "tivo.list.html.ep"
+    :major-mode 'html-mode
+    :tags '(("TiVo" section nil nil [47 71]) ("|
+    <%= $info->{folders} %> folders
+    |
+    <%= $info->{shows} %> shows
+    |
+    <%= $info->{size} %> GB
+    |
+    <font color=\"darkpink\"><%= $info->{percent} %> %" section nil nil [71 138]) ("|
+    <%= $info->{folders} %> folders
+    |
+    <%= $info->{shows} %> shows
+    |
+    <%= $info->{size} %> GB
+    |
+    <font color=\"darkpink\"><%= $info->{percent} %> %" section nil nil [138 202]) ("|
+    <%= $info->{folders} %> folders
+    |
+    <%= $info->{shows} %> shows
+    |
+    <%= $info->{size} %> GB
+    |
+    <font color=\"darkpink\"><%= $info->{percent} %> %" section nil nil [202 322]) ("|
+    <%= $info->{folders} %> folders
+    |
+    <%= $info->{shows} %> shows
+    |
+    <%= $info->{size} %> GB
+    |
+    <font color=\"darkpink\"><%= $info->{percent} %> %" section nil nil [322 328]))
+    :file "tivo.list.html.ep"
+    :pointmax 2976
+    )
+   (semanticdb-table "tivo.item.html.ep"
+    :major-mode 'html-mode
+    :tags '(("wubot: tivo" section nil nil [47 180]) ("{ %>
+        <tr>
+          <td width=\"8%\">tivoid" section nil nil [180 186]))
+    :file "tivo.item.html.ep"
+    :pointmax 4227
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

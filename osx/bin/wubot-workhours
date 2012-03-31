@@ -1,0 +1,45 @@
+#!/usr/local/bin/perl
+use strict;
+
+# VERSION
+
+use Log::Log4perl qw(:easy);
+use YAML::XS;
+
+Log::Log4perl->easy_init($INFO);
+my $logger = get_logger( 'default' );
+
+use App::Wubot::WubotX;
+
+use App::Wubot::Plugin::WorkHours;
+
+my $period = shift @ARGV;
+
+my $check = App::Wubot::Plugin::WorkHours->new( { class      => 'App::Wubot::Plugin::WorkHours',
+                                                  cache_file => '/dev/null',
+                                                  key        => 'WorkHours-testcase',
+                                                  reactor    => sub {},
+                                              } );
+
+my $config = { tablename  => 'idle',
+               dbfile     => "$ENV{HOME}/wubot/sqlite/idle.sql",
+               period     => $period,
+           };
+
+print YAML::XS::Dump $check->check( { config => $config } );
+
+__END__
+
+=head1 NAME
+
+ wubot-workhours - display summary information about active/idle time over the last 7 days
+
+=head1 SYNOPSIS
+
+  wubot-workhours
+
+=head1 DESCRIPTION
+
+If you are using the OsxIdle and WorkHours plugins, this script will
+print a summary of the number of active and idle hours over the last 7
+days.

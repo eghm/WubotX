@@ -1,0 +1,16 @@
+---
+enable: 1
+delay: 21600
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: timeline
+        mailbox: timeline
+        image: moon.png
+        color: yellow
+
+

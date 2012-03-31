@@ -1,0 +1,108 @@
+---
+enable: 1
+delay: 5s
+device: /dev/tty.usbmodem3b11
+
+react:
+
+  - name: lines
+    condition: line is true
+
+    rules:
+
+      - name: clean to beginning of line
+        plugin: TransformField
+        config:
+          source_field: line
+          regexp_search: '^.*\^'
+
+      - name: split
+        plugin: Split
+        config:
+          source_field: line
+          target_fields:
+            - source
+            - type
+            - value
+            - units
+
+      - name: get rid of invalid fields
+        condition: source is false OR type is false OR value is false OR units is false
+        last_rule: 1
+
+      - name: map key and value names
+        plugin: CopyField
+        config:
+          source_field: value
+          target_field_name: type
+
+      - name: key
+        plugin: Template
+        config:
+          template: '{$source}-{$type}'
+          target_field: key
+
+      - name: rrd
+        plugin: RRD
+        config:
+          base_dir: /home/wu/wubot/rrd
+          fields:
+            value: GAUGE
+          step: 60
+          period:
+            - day
+            - week
+            - month
+          graph_options:
+            right-axis: 1:0
+            width: 375
+
+      - name: sqlite
+        plugin: SQLite
+        config:
+          file: /home/wu/wubot/sqlite/arduino.sql
+          tablename: sensors
+          schema:
+            id: INTEGER PRIMARY KEY AUTOINCREMENT
+            source: int
+            type: int
+            value: int
+            units: int
+            lastupdate: int
+
+      - name: moisture
+        condition: contains moisture
+        rules:
+          - name: moisture drop
+            plugin: State
+            config:
+              field: moisture
+              decrease: 1
+          - name: moisture drop sticky
+            condition: state_changed is true
+            plugin: SetField
+            config:
+              field: sticky
+              value: 1
+
+      - name: temp
+        condition: contains temp
+        rules:
+          - name: temp change
+            plugin: State
+            config:
+              field: temp
+              change: 5
+
+      - name: humidity
+        condition: contains humidity
+        rules:
+          - name: humidity change
+            plugin: State
+            config:
+              field: humidity
+              change: 10
+
+
+
+

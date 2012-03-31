@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <title>Taskbot</title>
+    <meta http-equiv="refresh" content="<%= 180 + int(rand(60)) %>">
+    <script type='text/javascript' src='/sort/common.js'></script>
+    <script type='text/javascript' src='/sort/css.js'></script>
+    <script type='text/javascript' src='/sort/standardista-table-sorting.js'></script>
+    <%= include 'css' %>
+  </head>
+  <body bgcolor="#073642">
+
+    <%= include 'nav' %>
+
+    <font color="#FF00FF">
+      |
+      <a href="?scheduled=any">all</a>
+      |
+      <a href="?scheduled=false">unscheduled</a>
+      |
+      <a href="?scheduled=true">scheduled</a>
+      |
+      <a href="?scheduled=past">past schedule</a>
+      |
+      <% if ( $category ) { %>
+      <a href="?category="><%= $category %></a>
+      |
+      <% } %>
+      <a href="?task_status=todo">todo</a>
+      |
+      <a href="?task_status=done">done</a>
+      |
+      <a href="?norecur=1">-</a>
+      <a href="?norecur=0">+</a>
+      |
+    </font>
+
+    <form method="post">
+
+    <table width='100%'>
+      <tr valign='top'>
+
+        <td width='50' class="categories">
+          <table>
+            <% for my $category ( @{ $categories } ) { %>
+              <tr bgcolor='<%= $category->{color} %>'><td><a href='/taskbot/list?category=<%= $category->{category} %>&scheduled=any&task_status=todo'><%= $category->{category} %></a></td><td><%= $category->{count} %></td></tr>
+            <% } %>
+          </table>
+        </td>
+
+        <td>
+
+    <table width='100%' class='sortable'>
+      <thead>
+        <tr>
+          <% for my $header ( @$headers ) { %>
+          <th class="<%= $header %>"><%= $header %></th>
+          <% } %>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% use POSIX qw(strftime); %>
+        <% my $now = time; %>
+        <% my $before = 1; %>
+        <% my $count = 0; %>
+        <% my $last_date = ""; %>
+        <% my $undated = 0; %>
+        <% my $yesterday =  strftime( '%Y-%m-%d %a', localtime( time - 24*60*60 ) ); %>
+        <% my $today     =  strftime( '%Y-%m-%d %a', localtime( time ) ); %>
+        <% for my $item ( @{ $body_data } ) { %>
+
+          <% unless ( $item->scheduled ) { $undated = 1 }; %>
+          <% $count++; %>
+
+          <% my $date =  strftime( '%Y-%m-%d %a', localtime( $item->scheduled ) ); %>
+
+          <% if ( $before && $item->scheduled > $now ) { %>
+
+            <% if ( $before && $count == 1 ) { %>
+              <% $before = 0; %>
+
+            <% } else { %>
+
+              <tr bgcolor="black">
+                <% for my $header ( @$headers ) { %>
+                  <td></td>
+                <% } %>
+              </tr>
+
+              <tr background="/images/stripes.png">
+                <% for my $header ( @$headers ) { %>
+                  <td></td>
+                <% } %>
+              </tr>
+
+              <tr bgcolor="black">
+                <% for my $header ( @$headers ) { %>
+                  <td></td>
+                <% } %>
+              </tr>
+            <% } %>
+            <% $before = 0; %>
+          <% } %>
+
+          <% if ( $last_date ne $date ) {  %>
+            <tr bgcolor="black">
+              <% for my $header ( @$headers ) { %>
+                <% if ( $header eq "timer" ) { %>
+                  <td height="50px" valign="bottom" align="right">
+                    <% if ( ! $item->scheduled ) { %>
+                      Unscheduled
+                    <% } elsif ( $date eq $yesterday ) { %>
+                      Yesterday<br>
+                      <%= $date %>
+                    <% } elsif ( $date eq $today ) { %>
+                      Today<br>
+                      <%= $date %>
+                    <% } else { %>
+                      <%= $date %>
+                    <% } %>
+                  </td>
+                <% } else { %>
+                  <td></td>
+                <% } %>
+              <% } %>
+            </tr>
+            <% $last_date = $date; %>
+          <% } %>
+          
+        <tr height=10 bgcolor="<%= $item->display_color %>">
+
+          <td align="right" bgcolor="<%= $item->timer_color %>" width='10%'><%==  $item->timer_display %></td>
+          <td align="center"><%= $count %></td>
+          <td width='8%' align="right"><input type="text" name="cmd_<%= $item->taskid %>" size="8" style="background-color: <%= $item->display_color %>;"></td>
+          <td align="right"><a href="/taskbot/item/<%= $item->taskid %>?task_status=DONE&recurrence=<%= $item->recurrence %>&redir=list"><%== $item->status_pretty %></a></td>
+          <td align="right" width='7%'><%=  $item->scheduled_time %></td>
+          <% if ( $item->duration ) { %>
+            <td align="right" width='3%' bgcolor='black' style='border: 1px solid #6e1917'><%= $item->duration %></td>
+          <% } else { %>
+            <td align="right" width='3%'></td>
+          <% } %>
+          <td><a href='/taskbot/item/<%= $item->taskid %>'><%= $item->title %></a></td>
+          <td width='1%'><% if ( $item->has_body ) { %><a href='/taskbot/edit/<%= $item->taskid %>'>-&gt;</a> <% } %> </td>
+          <td width='1%'><% if ( $item->link ) { %><a href='<%= $item->link %>'>(*)</a><% } %></td>
+          <td width='3%'><%== $item->priority_display %></td>
+          <td width='2%' bgcolor="<%= $item->recurrence_color %>" width='1%'><%= $item->recurrence %></td>
+          <td width='7% align='center' width='6%' bgcolor="<%= $item->lastdone_color %>"><% if ( $item->lastdone ) { %> [<%=  $item->lastdone_age %>] <% } %> </td>
+          <td align="center" width='10%'><a href="/taskbot/list?category=<%= $item->category %>&scheduled=any"><%= $item->category %></a></td>
+          <td align='right' width='6%' bgcolor="<%= $item->lastupdate_color %>"><%=  $item->age %></td>
+
+          
+        </tr>
+        <% } %>
+
+
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+
+    </td>
+    </tr></table>
+
+    <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
+    </form>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+#!/perl
+use strict;
+
+use File::Temp qw/ tempdir /;
+use Test::More 'no_plan';
+use Test::Differences;
+
+use App::Wubot::Logger;
+use App::Wubot::Plugin::TaskDB;
+
+my $tempdir = tempdir( "/tmp/tmpdir-XXXXXXXXXX", CLEANUP => 1 );
+
+ok( my $check = App::Wubot::Plugin::TaskDB->new( { class      => 'App::Wubot::Plugin::TaskDB',
+                                              cache_file => '/dev/null',
+                                              key        => 'TaskDB-testcase',
+                                          } ),
+    "Creating a new TaskDB check instance"
+);
+
+my $config = { dbfile    => "$tempdir/tasks.ql",
+               tablename => 'tasks',
+           };
+
+ok( my $results = $check->check( { config => $config } ),
+    "Calling check() method"
+);

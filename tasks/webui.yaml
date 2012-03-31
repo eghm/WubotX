@@ -1,0 +1,7 @@
+---
+'/taskbot/new': newtask
+'/taskbot/item/(.taskid)': item
+'/taskbot/list': tasks
+'/taskbot/edit/(.taskid)': open
+'/taskbot/ical': ical
+

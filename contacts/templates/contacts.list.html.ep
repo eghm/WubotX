@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>Contact List</title>
+    <script type='text/javascript' src='/sort/common.js'></script>
+    <script type='text/javascript' src='/sort/css.js'></script>
+    <script type='text/javascript' src='/sort/standardista-table-sorting.js'></script>
+    <%= include 'css' %>
+  </head>
+  <body bgcolor="#073642">
+
+    <%= include 'nav' %>
+
+    <form method="post">
+
+    <table width='100%' class='sortable'>
+      <thead>
+        <tr>
+          <% for my $header ( @$headers ) { %>
+          <th class="<%= $header %>"><%= $header %></th>
+          <% } %>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% for my $item ( @{ $body_data } ) { %>
+
+        <tr height=10 bgcolor="<%= $item->display_color %>">
+
+          <td><a href="/contacts/id/<%= $item->id %>"><%= $item->username %></a></td>
+          <td><%= $item->nick %></td>
+          <td><%= $item->full_name %></td>
+          <td><%= $item->phone_mobile %></td>
+          <td><%= $item->phone_work %></td>
+          <td><%= $item->phone_home %></td>
+          <td><%= $item->category %></td>
+        </tr>
+
+        <% } %>
+
+
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+
+    </td>
+    </tr></table>
+
+    <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
+    </form>
+  </body>
+</html>

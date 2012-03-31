@@ -1,0 +1,16 @@
+;; Object templates/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "templates/"
+  :tables (list 
+   (semanticdb-table "contacts.list.html.ep"
+    :major-mode 'html-mode
+    :tags '(("Contact List" section nil nil [21 53]) ("nick %>" section nil nil [53 120]) ("nick %>" section nil nil [120 184]) ("nick %>" section nil nil [184 304]) ("nick %>" section (:members (("username %>" section nil nil [744 747]))) nil [304 310]))
+    :file "contacts.list.html.ep"
+    :pointmax 1306
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

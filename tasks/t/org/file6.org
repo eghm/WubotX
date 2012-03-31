@@ -1,0 +1,63 @@
+* TODO [#B] task 1
+
+  - [ ] one
+
+* DONE [#C] task 2
+  SCHEDULED: <2010-12-24 Fri>
+
+  - [ ] a
+  - [ ] b
+  - [X] c
+
+** TODO task 3
+  DEADLINE: <2010-12-21 Tue 12:30>
+
+  - [X] x
+  - [ ] y
+  - [ ] z
+
+
+** TODO task 4
+  DEADLINE: <2010-12-22 Wed 12:30 +1d>
+  - State "DONE"       from "TODO"       [2010-12-23 Thu 22:37]
+
+  - [X] x
+  - [ ] y
+  - [ ] z
+
+
+** TODO task 5
+  DEADLINE: <2010-12-22 Wed 12:30 .+1d>
+  - State "DONE"       from "TODO"       [2010-12-23 Thu 22:37]
+
+  - [X] x
+  - [ ] y
+  - [ ] z
+
+** TODO task 6
+   SCHEDULED: <2011-01-02 Sun +1w>
+
+  - [ ] asdf
+
+
+** TODO 1h task 7
+   SCHEDULED: <2011-01-02 Sun +1w>
+
+  - [ ] asdf
+
+
+** TODO [#B] 1h30m task 8
+   SCHEDULED: <2011-01-02 Sun +1w>
+
+  - [ ] asdf
+
+** TODO task9 [0/1]
+
+  - [ ] foo
+
+** TODO task 10
+   DEADLINE: <2011-06-20 Mon> SCHEDULED: <2011-06-17 Fri>
+
+  - [ ] foo
+ 
+

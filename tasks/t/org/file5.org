@@ -1,0 +1,12 @@
+
+* Foo
+
+  - x
+  - y
+  - z
+
+* Meta
+
+  - color: qwer
+
+

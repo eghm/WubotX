@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Tasks</title>
+    <link rel='stylesheet' href='sort/style.css' type='text/css' />
+    <script type='text/javascript' src='sort/common.js'></script>
+    <script type='text/javascript' src='sort/css.js'></script>
+    <script type='text/javascript' src='sort/standardista-table-sorting.js'></script>
+    <%= include 'css' %>
+  </head>
+<body bgcolor="#073642">
+
+  <%= include 'nav' %>
+  |
+  <a href="/tasks?tag=none">all tags</a>
+  |
+  <a href="/tasks?due=">all tasks</a>
+  |
+  <a href="/tasks?due=1">due</a>
+  |
+
+<table class='sortable autostripe'>
+<thead>
+  <tr>
+    <% for my $header ( @$headers ) { %>
+        <th class="<%= $header %>"><%= $header %></th>
+    <% } %>
+  </tr>
+</thead>
+
+<tbody>
+
+  <% for my $row ( @{ $body_data } ) { %>
+    <tr bgcolor="<%= $row->{color} %>">
+      <td><%= $row->{count} %></td>
+      <td bgcolor="<%= $row->{color} %>"><%= $row->{lastupdate} %></td>
+
+      <td bgcolor="<%= $tagcolors->{ $row->{tag} } %>">
+        <a href="?tag=<%= $row->{tag} %>"><%= $row->{tag} %></a>
+      </td>
+
+      <td><%= $row->{file} %></td>
+      <td>
+        <a href='/open/org/<%= $row->{file} %>.org/<%= $row->{emacs_link} %>'><%= $row->{title} %></a>
+        ( <a href='/open/org/<%= $row->{file} %>.org/<%= $row->{emacs_link} %>?done=1'>*</a>
+        <a href='/open/org/<%= $row->{file} %>.org/<%= $row->{emacs_link} %>?yesterday=1'>-</a> )
+      </td>
+      <td><%= $row->{priority} %></td>
+      <td bgcolor="<%= $row->{scheduled_color} %>"><%= $row->{scheduled} %></td>
+      <td bgcolor="<%= $row->{deadline_color} %>"><%= $row->{deadline} %></td>
+    </tr>
+    <% } %>
+
+</tbody>
+<tfoot></tfoot>
+</table>
+</body>
+</html>
+
+

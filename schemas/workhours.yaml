@@ -1,0 +1,5 @@
+---
+id: INTEGER PRIMARY KEY AUTOINCREMENT
+idle_hours: INTEGER
+active_hours: INTEGER
+lastupdate: INTEGER

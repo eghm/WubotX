@@ -1,0 +1,37 @@
+---
+id: INTEGER PRIMARY KEY AUTOINCREMENT
+name: VARCHAR(128)
+episode: VARCHAR(256)
+episode_num: INTEGER
+recorded: INTEGER
+format: VARCHAR(32)
+hd: VARCHAR(16)
+size: INTEGER
+channel: VARCHAR(16)
+duration: INTEGER
+description: VARCHAR(16384)
+program: VARCHAR(32)
+program_id: VARCHAR(32)
+series: VARCHAR(32)
+series_id: VARCHAR(32)
+link: VARCHAR(256)
+status: VARCHAR(16)
+color: VARCHAR(16)
+lastupdate: INTEGER
+seen: INTEGER
+download: BOOLEAN
+downloaded: BOOLEAN
+decoded: BOOLEAN
+library: BOOLEAN
+enqueued: INTEGER
+tivoid: INTEGER
+errmsg: VARCHAR(32)
+curl_cmd: VARCHAR(256)
+tivodecode_cmd: VARCHAR(256)
+tivo_key: VARCHAR(16)
+directory: VARCHAR(128)
+constraints:
+  - UNIQUE( name, episode, recorded )
+
+# tivo recordings db
+

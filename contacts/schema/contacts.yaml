@@ -1,0 +1,22 @@
+---
+id: INTEGER PRIMARY KEY AUTOINCREMENT
+username: VARCHAR(64)
+first_name: VARCHAR(64)
+middle_name: VARCHAR(64)
+last_name: VARCHAR(64)
+nick: VARCHAR(16)
+birthday: VARCHAR(32)
+color: VARCHAR(16)
+company: VARCHAR(64)
+position: VARCHAR(64)
+phone_work: VARCHAR(64)
+phone_mobile: VARCHAR(64)
+phone_home: VARCHAR(64)
+email_work: VARCHAR(128)
+email_home: VARCHAR(128)
+aim:  VARCHAR(32)
+link: VARCHAR(256)
+image: VARCHAR(64)
+notes: TEXT
+constraints:
+  - UNIQUE( username ) ON CONFLICT REPLACE

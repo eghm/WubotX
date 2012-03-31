@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" >
+    <title>TV Schedule</title>
+    <link rel='stylesheet' href='sort/style.css' type='text/css' />
+    <script type='text/javascript' src='sort/common.js'></script>
+    <script type='text/javascript' src='sort/css.js'></script>
+    <script type='text/javascript' src='sort/standardista-table-sorting.js'></script>
+
+     <script language="javascript">
+     function HideFrame(){
+      fr = document.getElementById ("blah");
+      if (fr.style.display!='none'){
+       fr.style.display="none";
+      }
+      else {
+       fr.style.display="block";
+      }
+     }
+     </script>
+
+  </head>
+  <body bgcolor=black>
+    <center>
+    <font color='purple'>
+    | <a href="/tv/schedule">now</a>
+    | <a href="?limit=1000">more</a>
+    | <a href="?all=1">unhide</a>
+    | <a href="?score=3">favorites</a>
+    | <a href="?score=5">flagged</a>
+    | <a href="?start=-1h">1 hour ago</a>
+    | <a href="?start=1h">in 1 hour</a>
+    | <a href="?new=1&limit=1000">new</a>
+    | <a href="?new=1&hd=1&limit=1000">new-HD</a>
+    | <a href="?hd=1&limit=1000">HD</a>
+    | <a href="?rated=R&limit=1000">R</a>
+    | <a href="?hd=1&rated=R&limit=1000">HD-R</a>
+    | <a href="?new=1&score=3&limit=1000">hot</a>
+    |
+    </font>
+    </center>
+    <font size="-2">
+    <table class='sortable autostripe'>
+    <thead>
+    <tr>
+    <th>count</th>
+    <th>station</th>
+    <th>chan</th>
+    <th>start</th>
+    <th>length</th>
+    <th>new</th>
+    <th>date</th>
+    <th>show</th>
+    <th>episode</th>
+    <th>scores</th>
+    <th>rt</th>
+    <th>hd</th>
+    <th>rated</th>
+    <th>lastupdate</th>
+    </tr>
+</thead>
+
+<tbody>
+
+    <% for my $row ( @{ $body_data } ) { %>
+     <tr bgcolor="<%= $row->{color} %>">
+      <td><%= $row->{count} %></td>
+      <td><%= $row->{callsign} %> <a href='/tv/station/hide/<%= $row->{station_id} %>/<%= $row->{hide} ? 0 : 1 %>' target='blah' title='<%= $row->{name} %>'><%= $row->{hide} ? '+' : '-' %></a></td>
+      <td><a href='?channel=<%= $row->{channel} %>'><%= $row->{channel} %></a></td>
+      <td><%= $row->{start_time} %></td>
+      <td><%= $row->{duration} %></td>
+      <td bgcolor="<%= $row->{new} ? 'green' : '' %>"><%= $row->{new} ? 'NEW' : '' %></td>
+      <td><%= $row->{year} || $row->{date} %></td>
+      <td>
+        <div style="width: 200px">
+          <%= $row->{program_id} =~ m|^MV| ? "[" :"" %>
+          <a href='/tv/program/<%= $row->{program_id} %>' title='<%= $row->{desc} %>'><%= $row->{title} %></a>
+          <%= $row->{program_id} =~ m|^MV| ? "]" :"" %>
+          <%= $row->{title_date} ? " $row->{title_date}" : ""  %>
+          <%= $row->{stars} ? " [$row->{stars}]" : ""  %>
+          <a href='/tv/schedule?all=1&search=<%= $row->{title} %>'>+</a>
+        </div>
+      </td>
+      <td>
+        <div style="width: 300px">
+          <a href='/tv/program/<%= $row->{program_id} %><%= $row->{episode_id} %>' title='<%= $row->{desc} %>'><%= $row->{subtitle} %></a>
+            <%= $row->{episode_id} ? "[$row->{episode_id}]" : "" %>
+            <%= $row->{subtitle_date} ? "[$row->{subtitle_date}]" : ""  %>
+            <a href="/tv/seen/<%= $row->{program_id} %>/<%= $row->{episode_id} %>/1"><%= $row->{episode_id} && ! $row->{seen} ? '[X]' : '' %></a>
+            <a href="/tv/seen/<%= $row->{program_id} %>/<%= $row->{episode_id} %>/0"><%= $row->{episode_id} && $row->{seen} ? '[X]' : '' %></a>
+        </div>
+      </td>
+      <td>
+        <a href='/tv/score/<%= $row->{score_id} %>/1' target='blah'>-</a><a href='/tv/score/<%= $row->{score_id} %>/2' target='blah'>-</a><a href='/tv/score/<%= $row->{score_id} %>/3' target='blah'>+</a><a href='/tv/score/<%= $row->{score_id} %>/4' target='blah'>+</a><a href='/tv/score/<%= $row->{score_id} %>/5' target='blah'>+</a><a href='/tv/score/<%= $row->{score_id} %>/D' target='blah'>X</a>
+      </td>
+      <td>
+        <% if ( $row->{rottentomato} ) { %>
+        <a href='<%= $row->{rottentomato_link} %>'><%= $row->{rottentomato} %></a>
+        <% } elsif ( $row->{program_id} =~ m|^MV| ) { %>
+        <a href='/tv/rt/<%= $row->{program_id} %>'>?</a>
+        <% } %>
+      </td>
+      <td bgcolor="<%= $row->{hd} ? 'green' : '' %>"><a href='?video=<%= $row->{hd} %>'><%= $row->{hd} ? "HD" : "" %></a></td>
+      <td><a href='?rated=<%= $row->{mpaa_rating} %>'><%= $row->{mpaa_rating} %></a></td>
+      <td><%= $row->{lastupdate} %></td>
+    </tr>
+    <% } %>
+
+</tbody>
+<tfoot></tfoot>
+</table>
+</font>
+<iframe name='blah' id='blah' width="1" height="1"></iframe>
+</body>
+</html>
+
+
