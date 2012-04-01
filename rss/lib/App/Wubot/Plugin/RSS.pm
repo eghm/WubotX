@@ -40,14 +40,14 @@ sub check {
 
     unless ( $feed ) {
         my $error = XML::Feed->errstr || "no error text";
-        $self->logger->logdie( "Failure parsing XML Feed: $error" );
+        die "Failure parsing XML Feed: $error";
     }
 
     my @entries = $feed->entries;
 
     my $count = scalar @entries;
     unless ( $count ) {
-        $self->logger->logdie( "No items found in feed" );
+        die "No items found in feed";
     }
 
     my @react;
