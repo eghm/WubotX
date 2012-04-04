@@ -3,6 +3,9 @@
   <head>
     <title>.:<%= $item->title %>:.</title>
     <%= include 'css' %>
+    <link rel="stylesheet" type="text/css" href="/jquery/jquery-ui-1.8.18.uidarkness.css" />
+    <script type="text/javascript" src="/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-ui-1.8.18.uidarkness.min.js"></script>
   </head>
   <body bgcolor=black>
 
@@ -126,6 +129,11 @@
       <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
 
     </form>
+    <script>
+ 		$(document).ready(function(){
+			$( 'input[name*="scheduled"]' ).datepicker({ dateFormat: 'yy-mm-dd' });
+ 		});
+	</script>
   </body>
 </html>
 
