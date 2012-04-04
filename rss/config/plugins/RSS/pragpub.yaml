@@ -1,0 +1,13 @@
+---
+url: http://www.pragprog.com/feed/global
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: programming
+        mailbox: programming
+

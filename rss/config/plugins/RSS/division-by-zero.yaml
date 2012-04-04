@@ -1,0 +1,20 @@
+---
+url: http://divisionbyzero.net/blog/posts.rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+
+  - name: set missing link field
+    condition: link is false
+    plugin: SetField
+    config:
+      set:
+        link: http://divisionbyzero.net/blog/
+

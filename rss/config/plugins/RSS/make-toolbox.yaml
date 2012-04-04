@@ -1,0 +1,13 @@
+---
+url: http://blog.makezine.com/archive/category/toolbox/feed
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: hack
+        mailbox: hack
+

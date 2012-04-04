@@ -1,0 +1,13 @@
+---
+url: http://trailers.apple.com/trailers/home/rss/newtrailers.rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: av
+        mailbox: av
+

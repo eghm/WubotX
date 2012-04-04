@@ -1,0 +1,13 @@
+---
+url: http://bdgregg.blogspot.com/rss.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: solaris
+        mailbox: solaris
+

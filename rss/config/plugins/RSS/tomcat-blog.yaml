@@ -1,0 +1,13 @@
+---
+url: https://blogs.apache.org/tomcat/feed/entries/atom
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: tomcat
+        mailbox: tomcat
+

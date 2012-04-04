@@ -1,0 +1,14 @@
+---
+url: http://feeds.feedburner.com/github?format=xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: github
+        mailbox: github
+
+

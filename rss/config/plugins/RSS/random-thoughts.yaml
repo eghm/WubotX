@@ -1,0 +1,13 @@
+---
+url: http://cubloid.blogspot.com/feeds/posts/default
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

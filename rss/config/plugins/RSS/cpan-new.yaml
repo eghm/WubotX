@@ -1,0 +1,14 @@
+---
+url: http://search.cpan.org/uploads.rdf
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: cpan-new
+        mailbox: cpan-new
+        quiet_growl: 1
+

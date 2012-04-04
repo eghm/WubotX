@@ -1,0 +1,13 @@
+---
+url: http://www.catalyzed.org/mt/mt-cp.cgi?__mode=feed&_type=posts&blog_id=1&id=3
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

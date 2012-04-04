@@ -1,0 +1,13 @@
+---
+url: http://feeds.feedburner.com/scienceblogs/YsBw
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: psych
+        mailbox: psych
+

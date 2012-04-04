@@ -1,0 +1,36 @@
+---
+url: http://earthquake.usgs.gov/eqcenter/catalogs/7day-M5.xml
+delay: 300
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: elements
+        mailbox: elements
+
+  - name: size
+    plugin: CaptureData
+    config:
+      source_field: title
+      regexp: '^M ([\d\.]+),'
+      target_field: size
+
+  - name: suppress less than 6.0
+    condition: size < 6
+    last_rule: 1
+
+  - name: sticky greater than 7.0
+    condition: size > 7
+    plugin: SetField
+    config:
+      set:
+        sticky: 1
+        color: yellow
+
+
+
+
+

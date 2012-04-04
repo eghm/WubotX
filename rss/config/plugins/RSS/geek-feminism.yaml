@@ -1,0 +1,13 @@
+---
+url: http://geekfeminism.org/feed/
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: fem
+        mailbox: fem
+

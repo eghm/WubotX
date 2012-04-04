@@ -1,0 +1,13 @@
+---
+url: http://www.gamestop.com/gs/content/feeds/gs_ns_PS3.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: games
+        mailbox: games
+

@@ -1,0 +1,14 @@
+---
+url: http://www.43folders.com/rss.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: gtd
+        mailbox: gtd
+
+

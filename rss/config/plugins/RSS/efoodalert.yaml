@@ -1,0 +1,29 @@
+---
+url: http://efoodalert.wordpress.com/feed/
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: food
+        mailbox: food
+
+  - name: get full body
+    condition: contains body
+    rules:
+
+      - name: fetch body
+        plugin: WebFetch
+        config:
+          field: body
+          url_field: link
+
+      - name: capture body contents
+        plugin: CaptureData
+        config:
+          field: body
+          regexp: '^.*(<div id="content">.*)<div class="postinfo'
+

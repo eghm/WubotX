@@ -1,0 +1,15 @@
+---
+url: http://support.f5.com/kb/en-us/recentadditions.rss.product-big-ip_gtm.xml
+delay: 86400
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: f5
+        mailbox: f5
+        quiet_growl: 1
+
+

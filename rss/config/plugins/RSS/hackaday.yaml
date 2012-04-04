@@ -1,0 +1,13 @@
+---
+url: http://hackaday.com/feed/
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: hack
+        mailbox: hack
+

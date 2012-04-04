@@ -1,0 +1,19 @@
+---
+url: http://rss.slashdot.org/Slashdot/slashdot
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: news
+        mailbox: news
+
+  - name: body image remover
+    condition: contains body
+    plugin: ImageStrip
+    config:
+      field: body
+

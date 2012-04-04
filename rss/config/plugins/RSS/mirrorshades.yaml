@@ -1,0 +1,13 @@
+---
+url: http://mirrorshades.net/rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: unix
+        mailbox: unix
+

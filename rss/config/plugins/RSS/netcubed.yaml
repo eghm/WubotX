@@ -1,0 +1,13 @@
+---
+url: http://blog.netcubed.de/feed/
+delay: 86400
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

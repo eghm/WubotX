@@ -1,0 +1,13 @@
+---
+url: http://feeds.feedburner.com/TekGearBlog
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: shop
+        mailbox: shop
+

@@ -1,0 +1,13 @@
+---
+url: http://planeterlang.org/en/planet/rss_2.0
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: erlang
+        mailbox: erlang
+

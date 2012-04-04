@@ -1,0 +1,13 @@
+---
+url: http://blogs.sun.com/bmc/feed/entries/rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: solaris
+        mailbox: solaris
+

@@ -1,0 +1,13 @@
+---
+url: http://www.sun.com/bigadmin/content/rss/recently_updated.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: solaris
+        mailbox: solaris
+

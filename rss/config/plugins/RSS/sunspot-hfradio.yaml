@@ -1,0 +1,35 @@
+---
+url: http://hfradio.org/propsupport/prop.rss
+delay: 43200
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: elements
+        mailbox: elements
+
+  - name: no storms
+    condition: body matches No space weather storms
+    last_rule: 1
+
+  - name: normal conditions
+    condition: body matches Normal.*Normal.*Normal
+    last_rule: 1
+
+  - name: body to subject
+    conditions: contains body
+    plugin: CopyField
+    config:
+      source_field: body
+      target_field: subject
+
+  - name: sun icon
+    plugin: SetField
+    config:
+      field: image
+      value: sunrise.png
+
+

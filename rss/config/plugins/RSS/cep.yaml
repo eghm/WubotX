@@ -1,0 +1,13 @@
+---
+url: http://complexevents.com/feed/
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: cep
+        mailbox: cep
+

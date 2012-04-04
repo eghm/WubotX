@@ -1,0 +1,13 @@
+---
+url: http://www.cpanforum.com/rss/all
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: cpan
+        mailbox: cpan
+

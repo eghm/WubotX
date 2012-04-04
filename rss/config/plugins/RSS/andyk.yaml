@@ -1,0 +1,13 @@
+---
+url: http://andk.typepad.com/blog/atom.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

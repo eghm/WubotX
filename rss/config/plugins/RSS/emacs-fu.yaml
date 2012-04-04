@@ -1,0 +1,13 @@
+---
+url: http://emacs.vote-system.com/feed/all
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: emacs
+        mailbox: emacs
+

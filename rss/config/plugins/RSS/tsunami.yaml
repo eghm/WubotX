@@ -1,0 +1,21 @@
+---
+url: http://wcatwc.arh.noaa.gov/rss/tsunamirss.xml
+delay: 30m
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: elements
+        mailbox: elements
+
+  - name: sticky greater than 7.0
+    plugin: SetField
+    config:
+      field: sticky
+      value: 1
+
+
+

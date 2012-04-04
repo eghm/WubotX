@@ -1,0 +1,13 @@
+---
+url: http://www.littlebigplanet.com/en/feeds/littlebigplanet-add-ons.rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: games
+        mailbox: games
+

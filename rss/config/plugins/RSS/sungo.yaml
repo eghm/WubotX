@@ -1,0 +1,13 @@
+---
+url: http://live.sungo.us/rss
+delay: 86400
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

@@ -1,0 +1,13 @@
+---
+url: http://www.us-cert.gov/channels/techalerts.rdf
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: security
+        mailbox: security
+

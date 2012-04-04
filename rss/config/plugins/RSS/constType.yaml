@@ -1,0 +1,13 @@
+---
+url: http://consttype.blogspot.com/feeds/8976298409674813698/comments/default
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

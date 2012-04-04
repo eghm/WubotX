@@ -1,0 +1,23 @@
+---
+url: http://www.cpantesters.org/author/VVU.rss
+delay: 24h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: project
+        mailbox: project
+
+  - name: quiet PASS messages
+    condition: subject matches ^PASS
+    last_rule: 1
+
+  - name: quiet growl-tiny failures
+    condition: subject matches ^FAIL Growl
+    last_rule: 1
+
+
+

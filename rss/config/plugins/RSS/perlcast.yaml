@@ -1,0 +1,13 @@
+---
+url: http://perlcast.com/feed/
+delay: 43200
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

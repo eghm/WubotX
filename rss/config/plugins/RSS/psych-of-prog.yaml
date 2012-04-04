@@ -1,0 +1,13 @@
+---
+url: http://p.einarsen.no/feed/
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: programming
+        mailbox: programming
+

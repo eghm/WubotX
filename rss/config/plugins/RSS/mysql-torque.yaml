@@ -1,0 +1,13 @@
+---
+url: http://imranchaudhry.com/?feed=rss2
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

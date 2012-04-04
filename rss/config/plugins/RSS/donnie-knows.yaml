@@ -1,0 +1,13 @@
+---
+url: http://donnieknows.com/taxonomy/term/14/0/feed
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: perl
+        mailbox: perl
+

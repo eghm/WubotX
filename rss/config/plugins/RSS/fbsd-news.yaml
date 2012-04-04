@@ -1,0 +1,13 @@
+---
+url: http://www.freebsd.org/news/rss.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: freebsd
+        mailbox: freebsd
+

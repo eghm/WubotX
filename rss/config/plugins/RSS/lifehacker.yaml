@@ -1,0 +1,13 @@
+---
+url: http://feeds.gawker.com/lifehacker/full
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: gtd
+        mailbox: gtd
+

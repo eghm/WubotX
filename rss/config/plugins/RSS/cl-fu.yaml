@@ -1,0 +1,19 @@
+---
+url: http://feeds2.feedburner.com/Command-line-fu
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: unix
+        mailbox: unix
+
+  - name: body image remover
+    condition: contains body
+    plugin: ImageStrip
+    config:
+      field: body
+

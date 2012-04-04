@@ -1,0 +1,13 @@
+---
+url: http://techbus.safaribooksonline.com/rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: books
+        mailbox: books
+

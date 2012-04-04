@@ -1,0 +1,13 @@
+---
+url: http://www.giganews.com/press/recent_news.rss
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: usenet
+        mailbox: usenet
+

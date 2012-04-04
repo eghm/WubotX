@@ -1,0 +1,12 @@
+---
+url: http://feeds.weatherbug.com/rss.aspx?zipCode=98367&zCode=z6286&units=0&feed=fcst
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: elements
+        mailbox: elements

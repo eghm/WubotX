@@ -1,0 +1,58 @@
+---
+url: http://www.rottentomatoes.com/syndication/rss/complete_movies.xml
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: av
+        mailbox: av
+
+  - name: percent
+    plugin: CaptureData
+    config:
+      source_field: title
+      regexp: '^\s*(\d+)'
+      target_field: percent
+
+  - name: subject
+    plugin: CaptureData
+    config:
+      source_field: title
+      regexp: '^\s*(.*)\s*'
+      target_field: subject
+
+  - name: link
+    plugin: CaptureData
+    config:
+      source_field: link
+      regexp: www.rottentomatoes.com(.*)
+      target_field: link
+
+  - name: title whitespace stripper
+    plugin: CaptureData
+    config:
+      source_field: title
+      regexp: '^\s*(.*?)\s*$'
+      target_field: title
+
+  - name: synopsis
+    plugin: CaptureData
+    config:
+      source_field: body
+      regexp: (.*)
+      target_field: synopsis
+
+  - name: has percent
+    plugin: False
+    config:
+      field: percent
+      set:
+        last_rule: 1
+
+
+
+

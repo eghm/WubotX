@@ -1,0 +1,14 @@
+---
+url: http://www.sparkfun.com/feeds/news
+delay: 1h
+
+react:
+
+  - name: categorize
+    plugin: SetField
+    config:
+      set:
+        coalesce: hack
+        mailbox: hack
+
+
