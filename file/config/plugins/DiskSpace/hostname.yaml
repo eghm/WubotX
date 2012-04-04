@@ -1,0 +1,10 @@
+---
+command: df -k
+critical_percent: 95
+warning_percent: 90
+
+skip:
+  '/dev': 1
+
+delay: 900
+
