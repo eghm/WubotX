@@ -5,6 +5,9 @@
     <script type='text/javascript' src='/sort/common.js'></script>
     <script type='text/javascript' src='/sort/css.js'></script>
     <script type='text/javascript' src='/sort/standardista-table-sorting.js'></script>
+    <link rel="stylesheet" type="text/css" href="/jquery/jquery-ui-1.8.18.uidarkness.css" />
+    <script type="text/javascript" src="/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/jquery/jquery-ui-1.8.18.uidarkness.min.js"></script>
     <%= include 'css' %>
   </head>
   <body bgcolor="#073642">
@@ -163,5 +166,18 @@
 
     <input type="image" src="/images/wubot.png" border=0 height=32 width=32 alt="submit">
     </form>
+    <script>
+ 		$(document).ready(function(){
+			$( 'input[name*="scheduled"]' ).datepicker({ dateFormat: 'yy-mm-dd', constrainInput:false });
+   			$("tr").hover( 
+     			function() {  // mouseover 
+          			$(this).addClass('highlight'); 
+     			}, 
+     			function() {  // mouseout 
+          			$(this).removeClass('highlight'); 
+     			} 
+   			);
+		});
+	</script>
   </body>
 </html>
