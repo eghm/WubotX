@@ -147,10 +147,10 @@
           <td width='1%'><% if ( $item->has_body ) { %><a href='/taskbot/edit/<%= $item->taskid %>'>-&gt;</a> <% } %> </td>
           <td width='1%'><% if ( $item->link ) { %><a href='<%= $item->link %>'>(*)</a><% } %></td>
           <td width='3%'><%== $item->priority_display %></td>
-          <td width='2%' bgcolor="<%= $item->recurrence_color %>" width='1%'><%= $item->recurrence %></td>
-          <td width='7%' align='center' width='6%' bgcolor="<%= $item->lastdone_color %>"><% if ( $item->lastdone ) { %> [<%=  $item->lastdone_age %>] <% } %> </td>
+          <td width='2%' width='1%'><%= $item->recurrence %></td>
+          <td width='7%' align='center' width='6%' <% if ( $item->lastdone ) { %> [<%=  $item->lastdone_age %>] <% } %> </td>
           <td align="center" width='10%'><a href="/taskbot/list?category=<%= $item->category %>&scheduled=any"><%= $item->category %></a></td>
-          <td align='right' width='6%' bgcolor="<%= $item->lastupdate_color %>"><%=  $item->age %></td>
+          <td align='right' width='6%' <%=  $item->age %></td>
 
           
         </tr>
